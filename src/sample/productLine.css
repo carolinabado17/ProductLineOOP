@@ -1,0 +1,16 @@
+.root {
+  -fx-background-image: url("nasa-rTZW4f02zY8-unsplash.jpg");
+}
+
+.label {
+  -fx-font-size: 15px;
+  -fx-font-weight: bolder;
+  -fx-text-fill: white;
+
+}
+
+.tab {
+  -fx-font-weight: bolder;
+  -fx-font-size: 15px;
+  -fx-text-fill: black;
+}

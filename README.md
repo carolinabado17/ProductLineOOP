@@ -1,35 +1,35 @@
 # ProductLineOOP
-# Project Title
+
+Project Title
 
 
-## Demonstration
+Demonstration
 
 
-## Documentation
+Documentation
 
 
-## Diagrams
+Diagrams
 
 
-## Getting Started
+Getting Started
+
+Built With
 
 
-## Built With
+Contributing
 
 
-## Contributing
+Author
 
 
-## Author
+License
 
 
-## License
+Acknowledgments
 
 
-## Acknowledgments
+History
 
 
-## History
-
-
-## Key Programming Concepts Utilized
+Key Programming Concepts Utilized

@@ -9,6 +9,7 @@ import javafx.stage.Stage;
 public class Main extends Application {
 
   // fix formatting-> command-option-shift-'L'
+
   @Override
   public void start(Stage primaryStage) throws Exception {
 

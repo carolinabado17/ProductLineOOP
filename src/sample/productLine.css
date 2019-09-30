@@ -13,4 +13,11 @@
   -fx-font-weight: bolder;
   -fx-font-size: 15px;
   -fx-text-fill: black;
+  -fx-background-color: #ff6cb4;
+}
+.button {
+  -fx-background-color: #ff6cb4;
+}
+.combo-box{
+  -fx-background-color: #ff6cb4;
 }

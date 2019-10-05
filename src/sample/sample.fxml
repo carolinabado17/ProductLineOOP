@@ -16,7 +16,7 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<TabPane prefHeight="431.0" prefWidth="500.0" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
+<TabPane prefHeight="545.0" prefWidth="505.0" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
   <tabs>
     <Tab text="Product Line">
       <content>
@@ -43,10 +43,11 @@
             </GridPane>
             <Button fx:id="addProd" layoutX="284.0" layoutY="166.0" mnemonicParsing="false" onAction="#addProduct" text="Add Product " />
             <Label layoutX="12.0" layoutY="192.0" prefHeight="29.0" prefWidth="145.0" text="Existing Products" />
-            <TableView layoutX="4.0" layoutY="228.0" prefHeight="165.0" prefWidth="494.0">
+            <TableView layoutX="4.0" layoutY="228.0" prefHeight="277.0" prefWidth="494.0">
               <columns>
                 <TableColumn prefWidth="75.0" text="C1" />
                 <TableColumn prefWidth="75.0" text="C2" />
+                        <TableColumn prefWidth="75.0" text="Column X" />
               </columns>
             </TableView>
           </children>
@@ -58,11 +59,11 @@
       <content>
         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
           <children>
-            <Label layoutX="21.0" layoutY="13.0" prefHeight="22.0" prefWidth="118.0" text="Choose Product" />
-            <ListView layoutX="7.0" layoutY="33.0" prefHeight="184.0" prefWidth="151.0" />
+            <Label layoutX="46.0" layoutY="22.0" prefHeight="22.0" prefWidth="118.0" text="Choose Product" />
+            <ListView layoutX="7.0" layoutY="47.0" prefHeight="279.0" prefWidth="195.0" />
             <Label layoutX="240.0" layoutY="24.0" prefHeight="17.0" prefWidth="146.0" text="Choose Quantity" />
             <ComboBox fx:id="dropDown" layoutX="218.0" layoutY="47.0" prefWidth="150.0" />
-            <Button fx:id="recordProd" layoutX="225.0" layoutY="124.0" mnemonicParsing="false" onAction="#recProduction" text="Record Production" />
+            <Button fx:id="recordProd" layoutX="217.0" layoutY="125.0" mnemonicParsing="false" onAction="#recProduction" prefHeight="34.0" prefWidth="152.0" text="Record Production" />
           </children>
         </AnchorPane>
       </content>
@@ -72,7 +73,7 @@
       <content>
         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
           <children>
-            <TextArea layoutX="22.0" layoutY="16.0" prefHeight="200.0" prefWidth="200.0" />
+            <TextArea layoutX="22.0" layoutY="16.0" prefHeight="481.0" prefWidth="468.0" />
           </children>
         </AnchorPane>
       </content>

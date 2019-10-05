@@ -19,7 +19,6 @@ public class Controller {
 
   public void addProduct(javafx.event.ActionEvent actionEvent) {
     System.out.println("Product has been added");
-    // INSERT INTO Product(type, manufacturer, name) VALUES ( "AUDIO", "Apple", "iPod" );
   }
 
   public void recProduction(javafx.event.ActionEvent actionEvent) {
@@ -83,5 +82,18 @@ public class Controller {
     } catch (Exception e) {
       e.printStackTrace();
     } // end try catch
+  }
+
+  public enum ItemType {
+    Audio("AU"),
+    Visual("VI"),
+    AudioMobile("AM"),
+    VisualMobile("VM");
+
+    private final String code;
+
+    ItemType(String code) {
+      this.code = code;
+    }
   }
 }

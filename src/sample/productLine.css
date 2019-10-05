@@ -21,3 +21,8 @@
 .combo-box{
   -fx-background-color: #ff6cb4;
 }
+.tab-pane * .tab-header-background {
+  -fx-background-image: url("nasa-rTZW4f02zY8-unsplash.jpg");
+}
+
+

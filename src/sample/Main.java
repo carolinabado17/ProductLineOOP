@@ -16,7 +16,7 @@ public class Main extends Application {
 
     Parent root = FXMLLoader.load(getClass().getResource("sample.fxml"));
 
-    Scene scene = new Scene(root, 500, 400);
+    Scene scene = new Scene(root, 510, 595);
     primaryStage.setScene(scene);
     scene.getStylesheets().add(Main.class.getResource("productLine.css").toExternalForm());
     primaryStage.setTitle("OOP Project - Product Line");

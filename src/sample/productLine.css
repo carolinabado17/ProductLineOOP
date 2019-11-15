@@ -1,28 +1,76 @@
 .root {
-  -fx-background-image: url("nasa-rTZW4f02zY8-unsplash.jpg");
+  -fx-background-color: black;
 }
 
 .label {
+  -fx-font-family: "Arial";
   -fx-font-size: 15px;
   -fx-font-weight: bolder;
   -fx-text-fill: white;
-
 }
 
 .tab {
+  -fx-font-family: "Arial";
   -fx-font-weight: bolder;
   -fx-font-size: 15px;
   -fx-text-fill: black;
-  -fx-background-color: #ff6cb4;
+  -fx-background-color: orange;
 }
+
 .button {
-  -fx-background-color: #ff6cb4;
+  -fx-font-family: "Arial";
+  -fx-background-color: orange;
 }
-.combo-box{
-  -fx-background-color: #ff6cb4;
+
+.combo-box {
+  -fx-background-color: orange;
 }
+
+.combo-box .list-cell {
+  -fx-background-color: black;
+}
+
+.combo-box .list-cell:focused > .label {
+  -fx-background-color: orange;
+}
+
+.combo-box .list-view > .label {
+  -fx-text-fill: white;
+}
+
+.combo-box .list-cell:focused > .label {
+  -fx-text-fill: black;
+}
+
 .tab-pane * .tab-header-background {
-  -fx-background-image: url("nasa-rTZW4f02zY8-unsplash.jpg");
+  -fx-background-color: black;
 }
 
+.choice-box .context-menu {
+  -fx-background-color: black;
+}
 
+.choice-box .menu-item:focused {
+  -fx-background-color: orange;
+}
+
+.choice-box .menu-item > .label {
+  -fx-text-fill: white;
+}
+
+.choice-box .menu-item:focused > .label {
+  -fx-text-fill: black;
+}
+
+.choice-box .context-menu:pressed > .label {
+  -fx-text-fill: black;
+}
+
+.table-view {
+  -fx-background-color: #ffd54c;
+}
+
+.table-column {
+  -fx-background-color: orange;
+  -fx-text-fill: black;
+}

@@ -1,29 +1,43 @@
 package sample;
 
-import java.awt.event.ActionEvent;
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.ListView;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 
+/**
+ * Controller class connects to the DB and GUI.
+ *
+ * @author carolinabado
+ */
 public class Controller {
 
-  private Statement stmt;
-
-  @FXML ComboBox dropDown;
-
-  public void addProduct(javafx.event.ActionEvent actionEvent) {
-    System.out.println("Product has been added");
-  }
-
-  public void recProduction(javafx.event.ActionEvent actionEvent) {
-    System.out.println("Production has been recorded");
-  }
+  @FXML private ComboBox dropDown;
+  @FXML private Button addProd;
+  @FXML private Button recordProd;
+  @FXML private ChoiceBox<ItemType> itemTypeCB;
+  @FXML private TableView<Product> tbvProduct;
+  @FXML private TableColumn<?, ?> productTbc;
+  @FXML private TableColumn<?, ?> tbcManufacturer;
+  @FXML private TableColumn<?, ?> tbcType;
+  @FXML private TextField txtProduct;
+  @FXML private TextField txtMan;
+  @FXML private ObservableList<Product> productList = FXCollections.observableArrayList();
+  @FXML private ListView<Product> chooseProdLV;
+  @FXML private TextArea productionLog;
 
   /**
    * method runs once application has started its going to load the comboList and connect to DB.
@@ -32,7 +46,17 @@ public class Controller {
   @FXML
   public void initialize() {
 
-    List<String> comboList = new ArrayList<String>();
+    productTbc.setCellValueFactory(new PropertyValueFactory<>("name"));
+    tbcManufacturer.setCellValueFactory(new PropertyValueFactory<>("manufacturer"));
+    tbcType.setCellValueFactory(new PropertyValueFactory<>("type"));
+
+    chooseProdLV.setItems(productList);
+
+    tbvProduct.setItems(productList);
+
+    itemTypeCB();
+
+    List<String> comboList = new ArrayList<>();
 
     // Populating w.values 1-10
     comboList.add("1");
@@ -69,18 +93,71 @@ public class Controller {
       conn = DriverManager.getConnection(DB_url, user, pass);
 
       // execute a query
-      stmt = conn.createStatement();
-
-      // hardcoding
-      String sql =
-          "INSERT INTO Product(type, manufacturer, name)" + "VALUES ( 'AUDIO', 'Apple', 'iPod')";
-      stmt.executeUpdate(sql);
+      // stmt = conn.createStatement();
 
       conn.close();
-      stmt.close();
+      // stmt.close();
 
     } catch (Exception e) {
       e.printStackTrace();
     } // end try catch
+  }
+
+  private void itemTypeCB() {
+    itemTypeCB.setItems(FXCollections.observableArrayList(ItemType.values()));
+  }
+
+  /**
+   * Records Production amount and displays on productionLog.
+   *
+   * @param actionEvent - when the button is clicked it adds to the ProductionLog
+   */
+  @FXML
+  public void recProduction(ActionEvent actionEvent) {
+    Product item2Produce = chooseProdLV.getSelectionModel().getSelectedItem();
+
+    /* Wasn't working at first it was hardcoded from repl.it to 3.
+    Had to convert it twice for it to work from int to string back to int.
+     */
+
+    int numProduced = 0;
+    String stringNumProd = String.valueOf(dropDown.getValue());
+
+    numProduced = Integer.parseInt(stringNumProd); // this will come from the combobox in the UI
+    int itemCount = 0;
+
+    for (int productionRunProduct = 0; productionRunProduct < numProduced; productionRunProduct++) {
+      ProductionRecord pr = new ProductionRecord(item2Produce, itemCount++);
+      // using the iterator as the product id for testing
+
+      System.out.println(pr.toString());
+      System.out.println("Production has been recorded");
+      productionLog.appendText(pr.toString() + '\n');
+    }
+  }
+
+  /**
+   * Adds Product to the TableView.
+   *
+   * @param actionEvent button is clicked adds product to the tableView
+   */
+  public void addProduct(ActionEvent actionEvent) {
+
+    String nameUser = txtProduct.getText();
+    String manUser = txtMan.getText();
+    ItemType typeUser = itemTypeCB.getValue();
+
+    System.out.println("Product has been added");
+    try {
+      String sql = "INSERT INTO Product(type, manufacturer, name) VALUES ( ?, ?, ?)";
+      // stmt.executeUpdate(sql);
+
+      // adds products to the ObvList and display it to the tableView
+      productList.add(new Widget(nameUser, manUser, typeUser));
+      System.out.println(productList);
+
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
   }
 }

@@ -69,9 +69,8 @@ public class Employee {
   /**
    * Creates the email for the user using their name.
    *
-   * @param name
+   * @param name - name of the username.
    */
-
   private void setEmail(String name) {
 
     Pattern firstNameCheck = Pattern.compile("(.*)\\s", Pattern.MULTILINE);
@@ -93,7 +92,6 @@ public class Employee {
    * @param password - user's assigned password
    * @return - the user's password
    */
-
   private boolean isValidPassword(String password) {
 
     final String regex = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\W).*$";
@@ -107,7 +105,6 @@ public class Employee {
    *
    * @return - user'name, its username, email, and displays the password.
    */
-
   public String toString() {
     return "\n"
         + "Name: "
@@ -123,5 +120,3 @@ public class Employee {
         + password;
   }
 }
-
-

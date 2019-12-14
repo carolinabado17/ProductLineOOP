@@ -5,6 +5,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import javafx.collections.FXCollections;
@@ -12,7 +13,6 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ListView;
@@ -30,8 +30,6 @@ import javafx.scene.control.cell.PropertyValueFactory;
 public class Controller {
 
   @FXML private ComboBox dropDown;
-  @FXML private Button addProd;
-  @FXML private Button recordProd;
   @FXML private ChoiceBox<ItemType> itemTypeCB;
   @FXML private TableView<Product> tbvProduct;
   @FXML private TableColumn<?, ?> productTbc;
@@ -50,14 +48,13 @@ public class Controller {
    * method runs once application has started its going to load the comboList and connect to DB.
    * (database)
    */
+
   @FXML
   public void initialize() {
 
     productTbc.setCellValueFactory(new PropertyValueFactory<>("name"));
     tbcManufacturer.setCellValueFactory(new PropertyValueFactory<>("manufacturer"));
     tbcType.setCellValueFactory(new PropertyValueFactory<>("type"));
-
-
 
     chooseProdLV.setItems(productList);
 
@@ -90,7 +87,6 @@ public class Controller {
     final String user = "";
     final String pass = "";
 
-
     final String Jdbc_Driver = "org.h2.Driver";
     final String DB_url = "jdbc:h2:./res/productDB";
 
@@ -101,15 +97,22 @@ public class Controller {
       // open connection
       conn = DriverManager.getConnection(DB_url, user, pass);
 
-      // execute a query
-      // stmt = conn.createStatement();
-
-      //conn.close();
-      // stmt.close();
+      // conn.close();
 
     } catch (Exception e) {
       e.printStackTrace();
     } // end try catch
+    try {
+      Statement stmt = conn.createStatement();
+      ResultSet rs = stmt.executeQuery("SELECT * FROM PRODUCT");
+      while (rs.next()) {
+        productList.add(
+            new Widget(rs.getString(2), ItemType.valueOf(rs.getString(3)), rs.getString(4)));
+      }
+    } catch (SQLException e) {
+      e.printStackTrace();
+      tbvProduct.setItems(productList);
+    }
   }
 
   private void itemTypeCB() {
@@ -161,12 +164,12 @@ public class Controller {
     try {
       String sql = "INSERT INTO Product(NAME, TYPE, MANUFACTURER) VALUES ( ?, ?, ?)";
       PreparedStatement productAdd = conn.prepareStatement(sql);
-      productAdd.setString(1,nameUser);
-      productAdd.setString(2,manUser);
-      productAdd.setString(3,typeUser.toString());
+      productAdd.setString(1, nameUser);
+      productAdd.setString(3, manUser);
+      productAdd.setString(2, typeUser.toString());
       productAdd.executeUpdate();
       // adds products to the ObvList and display it to the tableView
-      productList.add(new Widget(nameUser, manUser, typeUser));
+      productList.add(new Widget(nameUser, typeUser, manUser));
       System.out.println(productList);
 
     } catch (Exception e) {
@@ -178,6 +181,7 @@ public class Controller {
    *
    * @param event - when button is clicked it creates user and displays the details.
    */
+
   @FXML
   void createUser(ActionEvent event) {
     if (usernameInput.getText().equals("") || pwInput.getText().equals("")) {
@@ -185,7 +189,7 @@ public class Controller {
       a.setAlertType(Alert.AlertType.WARNING);
       a.setContentText("Please Fill In The Fields With --> *");
       a.show();
-    }else{
+    } else {
       Employee employee = new Employee(usernameInput.getText(), pwInput.getText());
       empDetails.setText(employee.toString());
       empDetails.setEditable(false); // you cant edit the details when printed out
@@ -193,8 +197,7 @@ public class Controller {
       this clears the text fields after LogIn button has been pressed. Allows functionality.
        */
       usernameInput.clear();
-      pwInput.clear();}
-
+      pwInput.clear();
+    }
   }
-
 }

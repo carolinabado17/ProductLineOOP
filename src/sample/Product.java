@@ -12,10 +12,10 @@ public abstract class Product implements Item {
   private String manufacturer;
   private String name;
 
-  Product(String name, String manufacturer, ItemType type) {
+  Product(String name,  ItemType type, String manufacturer) {
     this.name = name;
-    this.manufacturer = manufacturer;
     this.type = type;
+    this.manufacturer = manufacturer;
   }
 
   public String toString() {

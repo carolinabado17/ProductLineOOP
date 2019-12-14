@@ -6,8 +6,8 @@ package sample;
  * @author carolinabado
  */
 public class Widget extends Product {
-  Widget(String n, String m, ItemType t) {
-    super(n, m, t);
+  Widget(String n, ItemType t, String m) {
+    super(n, t, m);
   }
 
   @Override

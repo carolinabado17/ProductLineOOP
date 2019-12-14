@@ -19,7 +19,7 @@ public class MoviePlayer extends Product implements MultimediaControl {
    * @param monitorType tells you if its LCD or LED
    */
   MoviePlayer(String name, String manufacturer, Screen screen, MonitorType monitorType) {
-    super(name, manufacturer, ItemType.Visual);
+    super(name,  ItemType.Visual,manufacturer);
 
     this.screen = screen;
     this.monitorType = monitorType;

@@ -43,11 +43,6 @@ public class Main extends Application {
   }
 
   {
-    Product product1 = new Widget("iPod", "Apple", ItemType.AudioMobile);
-    System.out.println(product1.toString());
-    Product product2 = new Widget("Zune", "Microsoft", ItemType.AudioMobile);
-    System.out.println(product2.toString());
-
     AudioPlayer newProduct =
         new AudioPlayer(
             "DP-X1A", "Onkyo", "DSD/FLAC/ALAC/WAV/AIFF/MQA/Ogg-Vorbis/MP3/AAC", "M3U/PLS/WPL");

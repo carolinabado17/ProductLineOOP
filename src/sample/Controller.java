@@ -2,12 +2,16 @@ package sample;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ComboBox;
@@ -38,7 +42,10 @@ public class Controller {
   @FXML private ObservableList<Product> productList = FXCollections.observableArrayList();
   @FXML private ListView<Product> chooseProdLV;
   @FXML private TextArea productionLog;
-
+  @FXML private TextField usernameInput;
+  @FXML private TextField pwInput;
+  @FXML private TextArea empDetails;
+  Connection conn;
   /**
    * method runs once application has started its going to load the comboList and connect to DB.
    * (database)
@@ -49,6 +56,8 @@ public class Controller {
     productTbc.setCellValueFactory(new PropertyValueFactory<>("name"));
     tbcManufacturer.setCellValueFactory(new PropertyValueFactory<>("manufacturer"));
     tbcType.setCellValueFactory(new PropertyValueFactory<>("type"));
+
+
 
     chooseProdLV.setItems(productList);
 
@@ -80,7 +89,7 @@ public class Controller {
     //  Database credentials
     final String user = "";
     final String pass = "";
-    Connection conn;
+
 
     final String Jdbc_Driver = "org.h2.Driver";
     final String DB_url = "jdbc:h2:./res/productDB";
@@ -95,7 +104,7 @@ public class Controller {
       // execute a query
       // stmt = conn.createStatement();
 
-      conn.close();
+      //conn.close();
       // stmt.close();
 
     } catch (Exception e) {
@@ -148,10 +157,14 @@ public class Controller {
     ItemType typeUser = itemTypeCB.getValue();
 
     System.out.println("Product has been added");
-    try {
-      String sql = "INSERT INTO Product(type, manufacturer, name) VALUES ( ?, ?, ?)";
-      // stmt.executeUpdate(sql);
 
+    try {
+      String sql = "INSERT INTO Product(NAME, TYPE, MANUFACTURER) VALUES ( ?, ?, ?)";
+      PreparedStatement productAdd = conn.prepareStatement(sql);
+      productAdd.setString(1,nameUser);
+      productAdd.setString(2,manUser);
+      productAdd.setString(3,typeUser.toString());
+      productAdd.executeUpdate();
       // adds products to the ObvList and display it to the tableView
       productList.add(new Widget(nameUser, manUser, typeUser));
       System.out.println(productList);
@@ -160,4 +173,28 @@ public class Controller {
       e.printStackTrace();
     }
   }
+  /**
+   * Button pressed creates a User.
+   *
+   * @param event - when button is clicked it creates user and displays the details.
+   */
+  @FXML
+  void createUser(ActionEvent event) {
+    if (usernameInput.getText().equals("") || pwInput.getText().equals("")) {
+      Alert a = new Alert(Alert.AlertType.WARNING);
+      a.setAlertType(Alert.AlertType.WARNING);
+      a.setContentText("Please Fill In The Fields With --> *");
+      a.show();
+    }else{
+      Employee employee = new Employee(usernameInput.getText(), pwInput.getText());
+      empDetails.setText(employee.toString());
+      empDetails.setEditable(false); // you cant edit the details when printed out
+      /*
+      this clears the text fields after LogIn button has been pressed. Allows functionality.
+       */
+      usernameInput.clear();
+      pwInput.clear();}
+
+  }
+
 }
